@@ -92,3 +92,20 @@ If you run into authentication errors on Android, it's almost always because you
     After adding the fingerprint, it's a good practice to run `flutterfire configure` again to ensure all your local configuration files are up to date.
 
 5.  **Rebuild your app**: Completely stop and rebuild your app. A hot reload is not enough.
+
+### General: `MissingPluginException` after adding a new package
+
+If you see a `MissingPluginException` in your error logs after adding a new Firebase package (or any other package with native code), it means your app needs to be fully rebuilt.
+
+A simple hot reload or hot restart is not enough to link the new native code required by the plugin.
+
+**Solution**:
+1.  Completely **stop** the app from running in your IDE or terminal.
+2.  Run `flutter clean` to clear out old build artifacts.
+    ```sh
+    flutter clean
+    ```
+3.  Run the app again with a fresh build.
+    ```sh
+    flutter run
+    ```
