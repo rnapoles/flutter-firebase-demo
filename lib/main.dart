@@ -4,11 +4,15 @@ import 'package:firebase_demo/screens/counter_screen.dart';
 import 'package:firebase_demo/screens/books_authors_screen.dart';
 import 'package:firebase_demo/screens/fcm_screen.dart';
 import 'package:firebase_demo/utils/logger.dart';
+import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    await Firebase.initializeApp();
+    // await Firebase.initializeApp();
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
   } catch (e, s) {
     Logger.error(
       'FATAL: Firebase initialization failed',
