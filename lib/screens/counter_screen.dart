@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_demo/widgets/app_drawer.dart';
+import 'package:firebase_demo/utils/logger.dart';
 
 class CounterScreen extends StatefulWidget {
   const CounterScreen({super.key});
@@ -22,8 +23,12 @@ class _CounterScreenState extends State<CounterScreen> {
         final newCount = snapshot.get('count') + 1;
         transaction.update(_counterRef, {'count': newCount});
       }
-    }).catchError((error) {
-      print("Failed to update counter: $error");
+    }).catchError((error, stackTrace) {
+      Logger.error(
+        'Failed to update counter',
+        error: error,
+        stackTrace: stackTrace,
+      );
     });
   }
 

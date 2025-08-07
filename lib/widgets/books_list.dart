@@ -3,6 +3,7 @@ import 'package:firebase_demo/services/firestore_service.dart';
 import 'package:firebase_demo/models/book.dart';
 import 'package:firebase_demo/models/author.dart';
 import 'package:firebase_demo/widgets/add_edit_book_dialog.dart';
+import 'package:firebase_demo/utils/logger.dart';
 
 class BooksList extends StatelessWidget {
   const BooksList({super.key});
@@ -18,6 +19,11 @@ class BooksList extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
+          Logger.error(
+            'Error fetching books stream',
+            error: snapshot.error,
+            stackTrace: snapshot.stackTrace,
+          );
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {

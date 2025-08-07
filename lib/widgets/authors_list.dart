@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_demo/services/firestore_service.dart';
 import 'package:firebase_demo/models/author.dart';
 import 'package:firebase_demo/widgets/add_edit_author_dialog.dart';
+import 'package:firebase_demo/utils/logger.dart';
 
 class AuthorsList extends StatelessWidget {
   const AuthorsList({super.key});
@@ -16,6 +17,11 @@ class AuthorsList extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
         if (snapshot.hasError) {
+          Logger.error(
+            'Error fetching authors stream',
+            error: snapshot.error,
+            stackTrace: snapshot.stackTrace,
+          );
           return Center(child: Text('Error: ${snapshot.error}'));
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
