@@ -35,6 +35,22 @@ You need to connect your Flutter app to the Firebase project.
 4.  Click on **"Register app"**.
 5.  Download the `google-services.json` file.
 6.  Place the downloaded `google-services.json` file in the `android/app/` directory of your Flutter project.
+7.  **Configure Gradle Files**: To allow your Android app to use the `google-services.json` file, you need to add the Firebase Gradle plugin.
+    -   In `android/build.gradle.kts`, add the `google-services` plugin to the `plugins` block:
+        ```kotlin
+        plugins {
+            id("com.google.gms.google-services") version "4.4.2" apply false
+        }
+        ```
+    -   In `android/app/build.gradle.kts`, apply the plugin by adding it to the `plugins` block:
+        ```kotlin
+        plugins {
+            id("com.android.application")
+            id("kotlin-android")
+            id("com.google.gms.google-services") // Add this line
+            // ...
+        }
+        ```
 
 #### For iOS
 
