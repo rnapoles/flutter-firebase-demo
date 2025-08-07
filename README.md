@@ -52,6 +52,49 @@ You need to connect your Flutter app to the Firebase project.
         }
         ```
 
+##### Resolving Android Firebase Authentication Issues
+
+If you encounter a `SecurityException` or other authentication-related errors when running the app on Android, it is highly likely that you are missing the SHA-1 fingerprint in your Firebase project settings. Here is how to generate it and add it:
+
+1.  **Generate the SHA-1 Fingerprint**:
+    Open a terminal and run the following command from the `android` directory of your Flutter project:
+
+    -   On macOS/Linux:
+        ```sh
+        ./gradlew signingReport
+        ```
+    -   On Windows:
+        ```sh
+        gradlew.bat signingReport
+        ```
+
+2.  **Copy the SHA-1 Key**:
+    In the output of the command, look for the `debug` variant. It will look something like this:
+
+    ```
+    Variant: debug
+    Config: debug
+    Store: /Users/youruser/.android/debug.keystore
+    Alias: AndroidDebugKey
+    MD5: ...
+    SHA1: A1:B2:C3:...:E9:F0  <-- COPY THIS VALUE
+    SHA-256: ...
+    ```
+    Copy the `SHA1` value.
+
+3.  **Add the Fingerprint to Firebase**:
+    -   Go to your [Firebase project console](https://console.firebase.google.com/).
+    -   Navigate to **Project Settings** (click the gear icon next to "Project Overview").
+    -   Under the "General" tab, scroll down to the "Your apps" section and select your Android app.
+    -   Click on **"Add fingerprint"**.
+    -   Paste the SHA-1 key you copied and click **"Save"**.
+
+4.  **Update Firebase Configuration**:
+    -   After adding the fingerprint, a new `google-services.json` file will be generated.
+    -   Download this new `google-services.json` file and replace the old one in your `android/app/` directory.
+
+This process ensures that Google Play Services can securely authenticate your app.
+
 #### For iOS
 
 1.  In your Firebase project dashboard, click on the iOS icon to add an iOS app.
