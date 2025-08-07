@@ -64,6 +64,19 @@ class AppDrawer extends StatelessWidget {
               }
             },
           ),
+          const Divider(),
+          ListTile(
+            leading: const Icon(Icons.message),
+            title: const Text('FCM Demo'),
+            onTap: () {
+              // Avoid navigating to the same page
+              if (ModalRoute.of(context)!.settings.name != '/fcm') {
+                Navigator.of(context).pushReplacementNamed('/fcm');
+              } else {
+                Navigator.of(context).pop();
+              }
+            },
+          ),
         ],
       ),
     );

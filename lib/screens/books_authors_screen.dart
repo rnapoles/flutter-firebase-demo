@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_demo/widgets/app_drawer.dart';
 import 'package:firebase_demo/widgets/authors_list.dart';
 import 'package:firebase_demo/widgets/books_list.dart';
+import 'package:firebase_demo/utils/database_seeder.dart';
 import 'package:firebase_demo/widgets/add_edit_author_dialog.dart';
 import 'package:firebase_demo/widgets/add_edit_book_dialog.dart';
 
@@ -36,6 +37,15 @@ class _BooksAuthorsScreenState extends State<BooksAuthorsScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text('Books & Authors'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.data_exploration_outlined),
+            tooltip: 'Seed Database',
+            onPressed: () {
+              DatabaseSeeder.seedDatabase(context);
+            },
+          ),
+        ],
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
